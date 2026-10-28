@@ -1,0 +1,2 @@
+Kept pixels: 103050
+Median speed: 3.32 pixels/frame

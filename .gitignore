@@ -1,0 +1,11 @@
+﻿.venv/
+.venv-ready/
+.venv-cpu/
+.venv-gpu/
+data/
+__pycache__/
+report/
+*.pdf
+*.aux
+*.log
+*.out
