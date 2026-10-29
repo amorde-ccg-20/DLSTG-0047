@@ -56,7 +56,7 @@ def rows(model, video, transform, device):
     return [(x, pred), (tx, transform(y)), (tx, transformed), (tx, transform(pred))]
 
 
-def panel(model, video, index, name, transform, device):
+def panel(model, video, index, name, transform, device, prefix="figure3"):
     pairs = rows(model, video, transform, device)
     labels = ["X, f(X)", "T(X), T(Y)", "T(X), f(T(X))", "T(X), T(f(X))"]
     fig, axes = plt.subplots(4, 10, figsize=(15, 6))
@@ -67,8 +67,8 @@ def panel(model, video, index, name, transform, device):
         axes[row, 0].text(-0.1, 0.5, labels[row], transform=axes[row, 0].transAxes, ha="right", va="center")
     fig.suptitle(f"{name}, test video {index}")
     fig.tight_layout()
-    fig.savefig(OUT / f"figure3_{name}_{index}.pdf", bbox_inches="tight")
-    fig.savefig(OUT / f"figure3_{name}_{index}.png", dpi=160, bbox_inches="tight")
+    fig.savefig(OUT / f"{prefix}_{name}_{index}.pdf", bbox_inches="tight")
+    fig.savefig(OUT / f"{prefix}_{name}_{index}.png", dpi=160, bbox_inches="tight")
     plt.close(fig)
     frames = []
     for h in range(5):
@@ -83,7 +83,7 @@ def panel(model, video, index, name, transform, device):
         fig.canvas.draw()
         frames.append(Image.fromarray(np.asarray(fig.canvas.buffer_rgba()).copy()).convert("RGB"))
         plt.close(fig)
-    path = OUT / f"figure3_{name}_{index}.gif"
+    path = OUT / f"{prefix}_{name}_{index}.gif"
     frames[0].save(path, save_all=True, append_images=frames[1:], duration=800, loop=0)
     return path
 

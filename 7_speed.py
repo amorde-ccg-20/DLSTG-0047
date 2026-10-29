@@ -43,7 +43,7 @@ def score(model, loader, device):
     return errors[:, :2].mean().item(), errors.mean().item()
 
 
-def show(model, video, index, device):
+def show(model, video, index, device, prefix="figure5"):
     fig, axes = plt.subplots(6, 7, figsize=(11, 9))
     with torch.no_grad():
         for row, speed in enumerate((1, 2, 3)):
@@ -59,8 +59,8 @@ def show(model, video, index, device):
         axes[0, col].set_title(f"Input {col + 1}" if col < 5 else f"Future {col - 4}")
     fig.suptitle(f"Test video {index}")
     fig.tight_layout()
-    fig.savefig(OUT / "figure5.pdf", bbox_inches="tight")
-    fig.savefig(OUT / "figure5.png", dpi=160, bbox_inches="tight")
+    fig.savefig(OUT / f"{prefix}.pdf", bbox_inches="tight")
+    fig.savefig(OUT / f"{prefix}.png", dpi=160, bbox_inches="tight")
     plt.close(fig)
 
 
